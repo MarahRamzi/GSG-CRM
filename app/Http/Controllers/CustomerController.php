@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CustomerRequest;
 use App\Models\Customer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Reflector;
 
 class CustomerController extends Controller
@@ -47,6 +48,7 @@ class CustomerController extends Controller
      */
     public function store(CustomerRequest $request)
     {
+        $request->merge(['user_id' => Auth::id()]);
         $customer = Customer::create($request->all());
         return redirect()->route('customers.index')->with('success' , 'customer created successfuly');
     }

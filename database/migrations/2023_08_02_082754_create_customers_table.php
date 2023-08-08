@@ -19,6 +19,10 @@ return new class extends Migration
             $table->string('phone');
             $table->string('address');
             $table->string('career');
+            $table->foreignId('user_id')
+            ->nullable()
+            ->constrained()
+            ->cascadeOnDelete();
             $table->softDeletes();
             $table->timestamps();
         });
@@ -30,6 +34,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('customers');
-        Schema::dropSoftDeletes();
+        // Schema::dropSoftDeletes();
     }
 };
